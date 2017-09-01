@@ -1,8 +1,12 @@
+import UsersModel from '../../models/UsersModel';
+
 import {
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLInt
 } from 'graphql';
+
+import mongoose from 'mongoose';
 
 let count = 1;
 

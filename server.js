@@ -7,12 +7,20 @@ import convert from 'koa-convert';
 import configs from './configs';
 
 import schemas from './schemas/index.js';
+import Model from './model.js';
 
 const app = new koa();
 const router = new koaRouter();
 
-// import mongoose from 'mongoose';
-// mongoose.connect(['mongodb://', configs.mongodb.ip, '/', configs.mongodb.dbname].join(''));
+import mongoose from 'mongoose';
+const mongosePromise = mongoose.createConnection(['mongodb://', configs.mongodb.ip, '/', configs.mongodb.dbname].join(''), {
+	useMongoClient: true
+});
+
+mongosePromise.then((db) => {
+	console.log('mongodb connected successfully');
+	var model = new Model(db);
+});
 
 router.post('/graphql/users', koaBody(), graphqlKoa({ schema: schemas.UsersSchema }));
 router.get('/graphql/users', graphqlKoa({ schema: schemas.UsersSchema }));
@@ -22,4 +30,6 @@ router.get('/graphiql', graphiqlKoa({ endpointURL: '/graphql/users' }));
 app.use(convert(cors(configs.cors)));
 app.use(router.routes());
 app.use(router.allowedMethods());
-app.listen(configs.port);
+app.listen(configs.port, () => {
+	console.log('app started successfully, listening on port ' + configs.port);
+});
