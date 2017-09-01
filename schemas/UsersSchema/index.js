@@ -4,15 +4,28 @@ import {
   GraphQLInt
 } from 'graphql';
 
-let count = 0;
+let count = 1;
 
 let schema = new GraphQLSchema({
   query: new GraphQLObjectType({
-    name: 'RootQueryType',
+    name: 'UserQueryType',
     fields: {
       count: {
         type: GraphQLInt,
         resolve: function() {
+          return count;
+        }
+      }
+    }
+  }),
+
+  mutation: new GraphQLObjectType({
+    name: 'UserMutationType',
+    fields: {
+      updateCount: {
+        type: GraphQLInt,
+        resolve: function() {
+          count += 1;
           return count;
         }
       }
