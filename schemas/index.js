@@ -1,5 +1,5 @@
-import UsersSchema from './UsersSchema/index.js';
+import UserSchema from './UserSchema/index.js';
 
 export default {
-    UsersSchema
+    UserSchema
 }

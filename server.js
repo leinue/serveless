@@ -6,27 +6,26 @@ import cors from 'koa-cors';
 import convert from 'koa-convert';
 import configs from './configs';
 
-import schemas from './schemas/index.js';
+import mongoose from 'mongoose';
 
 const app = new koa();
 const router = new koaRouter();
 
-import mongoose from 'mongoose';
-const mongosePromise = mongoose.createConnection(['mongodb://', configs.mongodb.ip, '/', configs.mongodb.dbname].join(''), {
-	useMongoClient: true
-});
+const db = mongoose.createConnection(['mongodb://', configs.mongodb.ip, '/', configs.mongodb.dbname].join(''));
 
-mongosePromise
-.then((db) => {
+if(db) {
 	console.log('mongodb connected successfully');
-})
-.catch((error) => {
+	global.db = db;
+}else {
 	console.log('mongodb connected failed');
-	console.log(error);
-});
+}
 
-router.post('/graphql/users', koaBody(), graphqlKoa({ schema: schemas.UsersSchema }));
-router.get('/graphql/users', graphqlKoa({ schema: schemas.UsersSchema }));
+import schemaRouters from './routers/schemaRouters';
+
+const schemas = schemaRouters().default;
+
+router.post('/graphql/users', koaBody(), graphqlKoa({ schema: schemas.UserSchema }));
+router.get('/graphql/users', graphqlKoa({ schema: schemas.UserSchema }));
 
 router.get('/graphiql', graphiqlKoa({ endpointURL: '/graphql/users' }));
 
