@@ -7,7 +7,6 @@ import convert from 'koa-convert';
 import configs from './configs';
 
 import schemas from './schemas/index.js';
-import Model from './model.js';
 
 const app = new koa();
 const router = new koaRouter();
@@ -17,9 +16,13 @@ const mongosePromise = mongoose.createConnection(['mongodb://', configs.mongodb.
 	useMongoClient: true
 });
 
-mongosePromise.then((db) => {
+mongosePromise
+.then((db) => {
 	console.log('mongodb connected successfully');
-	var model = new Model(db);
+})
+.catch((error) => {
+	console.log('mongodb connected failed');
+	console.log(error);
 });
 
 router.post('/graphql/users', koaBody(), graphqlKoa({ schema: schemas.UsersSchema }));

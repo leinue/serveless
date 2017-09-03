@@ -1,8 +1,8 @@
 
 let configs = {
     cors: {
-      headers: ['WWW-Authenticate', 'Server-Authorization', 'Content-Type',
-        'Authorization'
+      headers: [
+        'WWW-Authenticate', 'Server-Authorization', 'Content-Type', 'Authorization'
       ],
       credentials: true,
       origin: '*'        

@@ -28,9 +28,14 @@ let schema = new GraphQLSchema({
     fields: {
       updateCount: {
         type: GraphQLInt,
-        resolve: function() {
-          count += 1;
-          return count;
+        async resolve (root, params, options) {
+          const UsersModel = new UsersModel({count: 10});
+          const newUser = await UsersModel.save();
+
+          if (!newUser) {
+            throw new Error('Error adding new comment');
+          }
+          return newUser;
         }
       }
     }
