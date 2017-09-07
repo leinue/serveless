@@ -24,10 +24,10 @@ import schemaRouters from './routers/schemaRouters';
 
 const schemas = schemaRouters().default;
 
-router.post('/graphql/users', koaBody(), graphqlKoa({ schema: schemas.UserSchema }));
-router.get('/graphql/users', graphqlKoa({ schema: schemas.UserSchema }));
+router.post('/graphql', koaBody(), graphqlKoa({ schema: schemas.UserSchema }));
+router.get('/graphql', graphqlKoa({ schema: schemas.UserSchema }));
 
-router.get('/graphiql', graphiqlKoa({ endpointURL: '/graphql/users' }));
+router.get('/graphiql', graphiqlKoa({ endpointURL: '/graphql' }));
 
 app.use(convert(cors(configs.cors)));
 app.use(router.routes());

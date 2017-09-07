@@ -1,0 +1,18 @@
+version: "3"
+services:
+  user_service:
+    build: .
+    links: 
+      - user_db
+    command: ["node", "index.js", ' && /bin/bash']
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "5555:5555"
+  user_db:
+    image: mongo
+    volumes:
+      - "/tmp/db:/data/db"
+    restart: always

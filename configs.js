@@ -12,7 +12,7 @@ let configs = {
 
     mongodb: {
         dbname: 'test',
-        ip: 'localhost:27017'
+        ip: 'user_db:27017'
     }
 }
 
