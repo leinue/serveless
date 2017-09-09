@@ -24,8 +24,8 @@ import schemaRouters from './routers/schemaRouters';
 
 const schemas = schemaRouters().default;
 
-router.post('/graphql', koaBody(), graphqlKoa({ schema: schemas.UserSchema }));
-router.get('/graphql', graphqlKoa({ schema: schemas.UserSchema }));
+router.post('/graphql', koaBody(), graphqlKoa({ schema: schemas.HelloSchema }));
+router.get('/graphql', graphqlKoa({ schema: schemas.HelloSchema }));
 
 router.get('/graphiql', graphiqlKoa({ endpointURL: '/graphql' }));
 

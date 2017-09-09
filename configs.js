@@ -1,4 +1,8 @@
 
+import os from 'os';
+
+const isInDocker = os.hostname().indexOf('service_in_container') > -1;
+
 let configs = {
     cors: {
       headers: [
@@ -8,12 +12,12 @@ let configs = {
       origin: '*'
     },
 
-    port: 5555,
+    port: 5565,
 
     mongodb: {
         dbname: 'test',
-        ip: 'user_db:27017'
+        ip: isInDocker ? 'user_db:27017': 'localhost:27017'
     }
 }
 
-export default configs
+export default configs;

@@ -5,6 +5,8 @@ services:
     links: 
       - user_db
     command: ["node", "index.js", ' && /bin/bash']
+    volumes:
+      - ./:/app
     deploy:
       replicas: 1
       restart_policy:

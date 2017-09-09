@@ -1,5 +1,5 @@
-import UserSchema from './UserSchema/index.js';
+import HelloSchema from './HelloSchema/index.js';
 
 export default {
-    UserSchema
+    HelloSchema
 }
