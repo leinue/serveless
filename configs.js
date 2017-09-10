@@ -12,7 +12,7 @@ let configs = {
       origin: '*'
     },
 
-    port: 5565,
+    port: 5555,
 
     mongodb: {
         dbname: 'test',

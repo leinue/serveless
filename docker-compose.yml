@@ -5,6 +5,7 @@ services:
     links: 
       - user_db
     command: ["node", "index.js", ' && /bin/bash']
+    hostname: user_service_in_container
     volumes:
       - ./:/app
     deploy:

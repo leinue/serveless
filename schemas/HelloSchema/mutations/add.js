@@ -15,8 +15,8 @@ const add = {
   },
   async resolve (root, params, options) {
 
-    const HelloModel = new HelloModel(params.info);
-    const newHello = await HelloModel.save();
+    const helloModel = new HelloModel(params.info);
+    const newHello = await helloModel.save();
 
     if (!newHello) {
       return false;
